@@ -1,4 +1,4 @@
-import re
+
 from playwright.sync_api import Playwright, sync_playwright, expect
 
 
@@ -7,9 +7,9 @@ def run(playwright: Playwright) -> None:
     context = browser.new_context()
     page = context.new_page()
     page.context.tracing.start(
-        screenshots=True,  # запись скриншотов
-        snapshots=True,   # сохранение DOM-снимков
-        sources=True      # запись исходного кода страницы
+        screenshots=True,  
+        snapshots=True,   
+        sources=True      
     )
     endpoints=["","company","projects","fields","blog"]
     for endpoint in endpoints:
@@ -40,7 +40,7 @@ def run(playwright: Playwright) -> None:
         expect(page.get_by_role("paragraph").filter(has_text="© 2014 -")).to_be_visible()
         expect(page.get_by_role("main").get_by_text("pdfpitchПрезентация компании", exact=True)).to_be_visible()
         expect(page.locator("footer").get_by_text("hello@only.digital+7 (495)")).to_be_visible()
-    # ---------------------
+
     page.context.tracing.stop(path="trace.zip")
     context.close()
     browser.close()
